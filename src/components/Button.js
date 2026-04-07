@@ -1,0 +1,11 @@
+export default function Button({ rounded = false, children }) {
+  return (
+    <button
+      className={`custom-btn text-xl max-h-[50px] shadow-custom shadow-primary-500 active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-gray-200 px-5 py-2 border border-primary-500 hover:text-primary-500 transition-colors duration-100 ease-in-out bg-gray-900 cursor-pointer ${
+        rounded ? "rounded-full" : "rounded-lg"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
