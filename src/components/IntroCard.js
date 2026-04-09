@@ -11,7 +11,7 @@ export default function IntroCard({ intro }) {
         name,
         summary,
         socialButtons = [],
-        supportLink,
+        supportLink = {},
         image,
     } = intro;
 
