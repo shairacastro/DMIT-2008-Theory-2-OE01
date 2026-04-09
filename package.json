@@ -1,6 +1,6 @@
 {
   "name": "theory-2-jan-2026",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "scripts": {
     "predev": "pnpm unocss:build",
