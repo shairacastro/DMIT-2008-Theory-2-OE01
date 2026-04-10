@@ -23,7 +23,7 @@ export default function Home() {
       try {
         const data = await getWeatherForProfile(
           profileData,
-          console.log("API KEY:", import.meta.env.VITE_WEATHER_API_KEY)
+          import.meta.env.VITE_WEATHER_API_KEY
         );
         setWeather(data);
       } catch (err) {
