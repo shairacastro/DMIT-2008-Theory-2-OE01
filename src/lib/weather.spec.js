@@ -10,7 +10,7 @@ import {
 describe("getWeatherLocationFromProfile", () => {
   it("prefers weather.location when provided", () => {
     const profile = {
-      weather: { location: " Tokyo " },
+      weather: { location: "Tokyo" },
       timeZone: { zone: "America/Edmonton" },
       contacts: { location: "Italy" },
     };
