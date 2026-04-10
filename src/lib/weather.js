@@ -25,7 +25,14 @@ export function getWeatherLocationFromProfile(profile) {
 
 
   const contactLocation = profile?.contacts?.location?.trim();
-  return contactLocation || "Edmonton";
+  if (
+    contactLocation &&
+    contactLocation.length > 2 &&
+    contactLocation.toLowerCase() !== "canada"  )
+    {
+      return contactLocation;
+    }
+    return "Edmonton";
 }
 
 export async function getWeatherForProfile(profile, apiKey) {
