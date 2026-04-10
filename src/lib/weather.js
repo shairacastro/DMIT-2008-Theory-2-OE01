@@ -35,7 +35,7 @@ export async function getWeatherForProfile(profile, apiKey) {
   }
 
   const weatherUrl = new URL(
-    "https://api.openweathermap.org/data/2.5/weather"
+    "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={67700b8a63d249dee39bf839da2f3206}"
   );
 
   weatherUrl.searchParams.set("q", location);
