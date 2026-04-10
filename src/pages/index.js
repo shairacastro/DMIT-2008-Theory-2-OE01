@@ -18,11 +18,12 @@ export default function Home() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
+    
     async function fetchWeather() {
       try {
         const data = await getWeatherForProfile(
           profileData,
-          import.meta.env.VITE_WEATHER_API_KEY
+          console.log("API KEY:", import.meta.env.VITE_WEATHER_API_KEY)
         );
         setWeather(data);
       } catch (err) {
