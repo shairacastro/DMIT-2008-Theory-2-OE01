@@ -2,7 +2,7 @@
 
 > Student Name: Shaira Castro
 
-![Website Screenshot](./docs/images/preview.png)
+![Website Screenshot](./docs/images/finalpreview.png)
 
 In this assignment, you will demonstrate your ability to
 
