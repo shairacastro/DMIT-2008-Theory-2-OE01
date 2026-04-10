@@ -1,5 +1,4 @@
 import Layout from "@/components/Layout";
-import { useEffect } from "react";
 import Card from "../components/Card";
 import IntroCard from "../components/IntroCard";
 import ContactsCard from "../components/ContactsCard";
@@ -10,18 +9,31 @@ import WeatherCard from "../components/WeatherCard";
 import profileData from "@/data/profile.json";
 import { getWeatherForProfile } from "@/lib/weather";
 // import Globe from "../components/Globe";
+import { useState, useEffect } from "react";
 
 
-export async function getServerSideProps() {
-  const weather = await getWeatherForProfile(
-    profileData,
-    process.env.VITE_WEATHER_API_KEY
-  );
-  return {props: {weather}};
-}
 
 
 export default function Home() {
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    async function fetchWeather() {
+      try {
+        const data = await getWeatherForProfile(
+          profileData,
+          import.meta.env.VITE_WEATHER_API_KEY
+        );
+        setWeather(data);
+      } catch (err) {
+        setWeather({ error: "Failed to load weather" });
+      }
+    }
+
+    fetchWeather();
+  }, []);
+
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
@@ -102,8 +114,7 @@ export default function Home() {
             </p>
           </div>
         </Card>
-        <WeatherCard weather={weather}
-        />
+        <WeatherCard weather={weather} />
         <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
           <div className="relative min-h-[44px] overflow-hidden">
             <footer className="absolute inset-0 text-xs opacity-100 translate-y-0 transition-all duration-300 ease-out group-hover:-translate-y-3 group-hover:opacity-0 group-focus-within:-translate-y-3 group-focus-within:opacity-0">
