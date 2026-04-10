@@ -1,38 +1,25 @@
 function toTitleCase(value = "") {
-  return value.replace(/\w\S*/g, (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  });
+  return value
+    .toLowerCase()
+    .split(" ")
+    .filter(Boolean)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 export function getWeatherLocationFromProfile(profile) {
   const customLocation = profile?.weather?.location?.trim();
-  if (customLocation) {
-    return customLocation;
-  }
-
+  if (customLocation) return customLocation;
 
   const timeZone = profile?.timeZone?.zone;
-  if (timeZone && timeZone.includes("/")) {
-    const cityFromTimeZone = timeZone
-      .split("/")
-      .pop()
-      .replace(/_/g, " ");
-
-    if (cityFromTimeZone) {
-      return cityFromTimeZone;
-    }
+  if (timeZone?.includes("/")) {
+    return timeZone.split("/").pop().replace(/_/g, " ");
   }
 
-
   const contactLocation = profile?.contacts?.location?.trim();
-  if (
-    contactLocation &&
-    contactLocation.length > 2 &&
-    contactLocation.toLowerCase() !== "canada"  )
-    {
-      return contactLocation;
-    }
-    return "Edmonton";
+  if (contactLocation) return contactLocation;
+
+  return "Edmonton";
 }
 
 export async function getWeatherForProfile(profile, apiKey) {
