@@ -15,25 +15,23 @@ import { useState, useEffect } from "react";
 
 
 export default function Home() {
+
   const [weather, setWeather] = useState(null);
-
   useEffect(() => {
-    
-    async function fetchWeather() {
-      try {
-        const data = await getWeatherForProfile(
-          profileData,
-          import.meta.env.VITE_WEATHER_API_KEY
-        );
-        setWeather(data);
-      } catch (err) {
-        setWeather({ error: "Failed to load weather" });
-      }
+  async function fetchWeather() {
+    try {
+      const data = await getWeatherForProfile(
+        profileData,
+        process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
+      );
+      setWeather(data);
+    } catch (err) {
+      setWeather({ error: "Failed to load weather" });
     }
+  }
 
-    fetchWeather();
-  }, []);
-
+  fetchWeather();
+}, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -115,7 +113,13 @@ export default function Home() {
             </p>
           </div>
         </Card>
-        <WeatherCard weather={weather} />
+        {weather ? (
+          <WeatherCard weather={weather} />
+        ) : (
+          <Card title="Current weather">
+            <p className="text-sm text-neutral-300">Loading weather...</p>
+          </Card>
+        )}
         <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
           <div className="relative min-h-[44px] overflow-hidden">
             <footer className="absolute inset-0 text-xs opacity-100 translate-y-0 transition-all duration-300 ease-out group-hover:-translate-y-3 group-hover:opacity-0 group-focus-within:-translate-y-3 group-focus-within:opacity-0">
