@@ -6,10 +6,10 @@ function formatTemperature(temperatureC) {
 }
 
 export default function WeatherCard({ weather }) {
-  const hasWeather =
-    weather &&
-    typeof weather.temperatureC === "number" &&
-    weather.description;
+const hasWeather =
+  weather &&
+  weather.temperatureC != null &&
+  weather.description;
 
   return (
     <Card colSpan="md:col-span-1" rowSpan="md:row-span-2" title="Current weather">

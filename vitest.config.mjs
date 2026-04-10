@@ -45,5 +45,6 @@ export default defineConfig({
     css: true,
     globals: true,
     restoreMocks: true,
+    setupFiles: ["src/test/setupTest.js"]
   },
 });

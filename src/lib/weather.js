@@ -25,7 +25,6 @@ export function getWeatherLocationFromProfile(profile) {
 export async function getWeatherForProfile(profile, apiKey) {
   const location = getWeatherLocationFromProfile(profile);
 
-
   if (!apiKey) {
     return {
       location,
@@ -35,40 +34,36 @@ export async function getWeatherForProfile(profile, apiKey) {
   }
 
   const weatherUrl = new URL(
-    "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={67700b8a63d249dee39bf839da2f3206}"
+    "https://api.openweathermap.org/data/2.5/weather"
   );
 
   weatherUrl.searchParams.set("q", location);
   weatherUrl.searchParams.set("units", "metric");
   weatherUrl.searchParams.set("appid", apiKey);
 
+
   try {
     const response = await fetch(weatherUrl.toString());
+    const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(`OpenWeather request failed with ${response.status}`);
+      throw new Error(data.message || "OpenWeather request failed");
     }
-
-    const data = await response.json();
 
     const current = data?.weather?.[0] || {};
 
-    const locationLabel = [data?.name, data?.sys?.country]
-      .filter(Boolean)
-      .join(", ");
-
     return {
-      location: locationLabel || location,
-      temperatureC: data?.main?.temp ?? null,
-      description: toTitleCase(current?.description || ""),
-      iconUrl: current?.icon
+      location: `${data.name}, ${data.sys.country}`,
+      temperatureC: data.main?.temp ?? null,
+      description: toTitleCase(current.description || ""),
+      iconUrl: current.icon
         ? `https://openweathermap.org/img/wn/${current.icon}@2x.png`
         : null,
     };
   } catch (err) {
     return {
       location,
-      error: "Unable to load current weather right now.",
+      error: "Failed to load weather.",
     };
   }
 }
