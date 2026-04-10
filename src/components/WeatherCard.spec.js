@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import WeatherCard from "./WeatherCard";
 
+
 vi.mock("./Card", () => ({
   default: ({ title, children }) =>
     createElement(
@@ -11,6 +12,10 @@ vi.mock("./Card", () => ({
       title ? createElement("h2", null, title) : null,
       children
     ),
+}));
+
+vi.mock("next/image", () => ({
+  default: (props) => createElement("img", props),
 }));
 
 describe("WeatherCard", () => {
