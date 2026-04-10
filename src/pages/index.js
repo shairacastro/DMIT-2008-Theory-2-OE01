@@ -6,9 +6,20 @@ import ContactsCard from "../components/ContactsCard";
 import TimeZone from "../components/TimeZoneCard";
 import AboutMe from "../components/AboutMe";
 import Now from "../components/Now";
-import ContentPlaceholder from "../components/ContentPlaceholder";
+import WeatherCard from "../components/WeatherCard";
 import profileData from "@/data/profile.json";
+import { getWeatherForProfile } from "@/lib/weather";
 // import Globe from "../components/Globe";
+
+
+export async function getServerSideProps() {
+  const weather = await getWeatherForProfile(
+    profileData,
+    process.env.OPENWEATHER_API_KEY
+  );
+  return {props: {weather}};
+}
+
 
 export default function Home() {
   useEffect(() => {
@@ -91,10 +102,7 @@ export default function Home() {
             </p>
           </div>
         </Card>
-        <ContentPlaceholder
-          title={profileData.sections.comingSoon.title}
-          message={profileData.sections.comingSoon.message}
-          cta={profileData.sections.comingSoon.cta}
+        <WeatherCard weather={weather}
         />
         <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
           <div className="relative min-h-[44px] overflow-hidden">
