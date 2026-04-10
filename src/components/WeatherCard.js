@@ -27,7 +27,7 @@ export default function WeatherCard({ weather }) {
         {hasWeather ? (
           <div className="flex items-center gap-3">
             {weather.iconUrl ? (
-              <Image
+              <img
                 alt={weather.description}
                 className="h-16 w-16 object-contain"
                 height={64}
