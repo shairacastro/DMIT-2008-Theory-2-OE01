@@ -15,7 +15,7 @@ import { getWeatherForProfile } from "@/lib/weather";
 export async function getServerSideProps() {
   const weather = await getWeatherForProfile(
     profileData,
-    process.env.OPENWEATHER_API_KEY
+    process.env.VITE_WEATHER_API_KEY
   );
   return {props: {weather}};
 }
